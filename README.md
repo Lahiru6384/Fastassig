@@ -638,6 +638,7 @@
             border-top: 1px solid rgba(148, 163, 184, 0.1);
             color: var(--text);
             vertical-align: middle;
+            background: rgba(15, 23, 42, 0.82);
         }
 
         tbody tr {
@@ -646,6 +647,10 @@
 
         tbody tr:hover {
             background: rgba(51, 65, 85, 0.45);
+        }
+
+        tbody tr:hover td {
+            background: rgba(30, 41, 59, 0.9);
         }
 
         .muted {
@@ -664,8 +669,8 @@
         }
 
         .badge-assignment {
-            background: rgba(59, 130, 246, 0.18);
-            color: #bfdbfe;
+            background: rgba(59, 130, 246, 0.24);
+            color: #dbeafe;
         }
 
         .badge-project {
@@ -679,8 +684,8 @@
         }
 
         .badge-due {
-            background: rgba(249, 115, 22, 0.16);
-            color: #fdba74;
+            background: rgba(249, 115, 22, 0.22);
+            color: #fed7aa;
         }
 
         .money {
@@ -691,7 +696,7 @@
 
         .date-normal {
             color: #cbd5e1;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .date-urgent {
@@ -705,11 +710,19 @@
         }
 
         .row-urgent {
-            background: linear-gradient(90deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.02));
+            background: linear-gradient(90deg, rgba(239, 68, 68, 0.14), rgba(239, 68, 68, 0.04));
         }
 
         .row-overdue {
-            background: linear-gradient(90deg, rgba(71, 85, 105, 0.16), rgba(71, 85, 105, 0.04));
+            background: linear-gradient(90deg, rgba(71, 85, 105, 0.22), rgba(71, 85, 105, 0.08));
+        }
+
+        .row-urgent td {
+            background: rgba(69, 18, 26, 0.72);
+        }
+
+        .row-overdue td {
+            background: rgba(39, 49, 63, 0.86);
         }
 
         .empty-state {
