@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <style>
         :root {
             --bg: #0f172a;
@@ -330,6 +333,53 @@
             text-transform: uppercase;
             letter-spacing: 0.08em;
             background: rgba(15, 23, 42, 0.92);
+        }
+
+        .sync-panel {
+            margin-top: 24px;
+            padding: 22px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.78), rgba(15, 23, 42, 0.92));
+        }
+
+        .sync-panel h3 {
+            margin: 0 0 8px;
+            color: var(--white);
+            font-size: 1.08rem;
+        }
+
+        .sync-panel p {
+            margin: 0 0 14px;
+            color: var(--text-soft);
+            font-size: 0.9rem;
+        }
+
+        .sync-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .sync-row input {
+            flex: 1 1 260px;
+        }
+
+        .sync-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        .sync-list li {
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.66);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            color: var(--text);
         }
 
         .section {
@@ -1260,6 +1310,21 @@
                         </table>
                     </div>
                 </section>
+
+                <section class="sync-panel">
+                    <h3>Add New Client</h3>
+                    <p>Cloud sync section powered by Firebase Realtime Database.</p>
+                    <div class="sync-row">
+                        <input type="text" id="clientInput" placeholder="Enter client name">
+                        <button type="button" class="btn-secondary" id="addClientBtn">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span>Add Client</span>
+                        </button>
+                    </div>
+
+                    <h3>Client List (Syncing...)</h3>
+                    <ul id="clientList" class="sync-list"></ul>
+                </section>
             </main>
         </div>
     </div>
@@ -1273,6 +1338,15 @@
         const LOGIN_PASSWORD = '638455';
         const LIMITED_USERNAME = 'Dilmi';
         const LIMITED_PASSWORD = '1234';
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRI1LlKrt3v4KySL7Cnr_WkS3tcWQjrg4",
+            authDomain: "fastassig-c57c1.firebaseapp.com",
+            projectId: "fastassig-c57c1",
+            storageBucket: "fastassig-c57c1.appspot.com",
+            messagingSenderId: "1004167924025",
+            appId: "1:1004167924025:web:079969223ba8898b9800e8",
+            measurementId: "G-0XKNS0YDZH"
+        };
 
         const elements = {
             authScreen: document.getElementById('authScreen'),
@@ -1288,6 +1362,9 @@
             notificationPanel: document.getElementById('notificationPanel'),
             notificationList: document.getElementById('notificationList'),
             clearNotificationsBtn: document.getElementById('clearNotificationsBtn'),
+            clientInput: document.getElementById('clientInput'),
+            addClientBtn: document.getElementById('addClientBtn'),
+            clientList: document.getElementById('clientList'),
             name: document.getElementById('name'),
             date: document.getElementById('date'),
             type: document.getElementById('type'),
@@ -1338,6 +1415,50 @@
 
         let currentTab = 'active';
         let currentUserRole = null;
+        let firebaseDatabase = null;
+
+        function initializeFirebaseSync() {
+            if (typeof firebase === 'undefined') {
+                console.error('Firebase SDK did not load.');
+                return;
+            }
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            firebaseDatabase = firebase.database();
+            firebaseDatabase.ref('clients/').on('value', (snapshot) => {
+                elements.clientList.innerHTML = '';
+
+                snapshot.forEach((childSnapshot) => {
+                    const data = childSnapshot.val() || {};
+                    const li = document.createElement('li');
+                    li.textContent = `${data.name || 'Unnamed Client'} (Added on: ${data.time || 'Unknown'})`;
+                    elements.clientList.appendChild(li);
+                });
+            });
+        }
+
+        function addClient() {
+            if (!firebaseDatabase) {
+                alert('Firebase is not connected yet.');
+                return;
+            }
+
+            const clientName = elements.clientInput.value.trim();
+
+            if (clientName !== "") {
+                firebaseDatabase.ref('clients/').push({
+                    name: clientName,
+                    time: new Date().toLocaleString()
+                });
+                elements.clientInput.value = '';
+                alert('Client added to Cloud!');
+            } else {
+                alert('Please enter a name!');
+            }
+        }
 
         function canViewAmounts() {
             return currentUserRole === 'admin';
@@ -1973,6 +2094,7 @@
             setNotifications([]);
             renderNotifications();
         });
+        elements.addClientBtn.addEventListener('click', addClient);
         elements.activeTabBtn.addEventListener('click', () => {
             setCurrentTab('active');
             renderTasks();
@@ -2018,6 +2140,7 @@
         });
 
         window.addEventListener('load', () => {
+            initializeFirebaseSync();
             elements.loginUsername.focus();
         });
     </script>
