@@ -980,7 +980,7 @@
                 <div class="auth-brand">
                     <img
                         class="auth-logo"
-                        src="file:///H:/My%20Drive/Main%20FIle/logo/Logo/Fast%20Assignment_JPEG_Original%20logo%201.jpg"
+                        src="H:\My Drive\Main FIle\logo\Logo\Fast Assignment_JPEG_Original logo 1.jpg"
                         alt="Fast Assignment logo"
                     >
                     <h1 class="auth-title">Fast Assignment</h1>
@@ -1014,7 +1014,7 @@
                     <div class="hero-brand">
                         <img
                             class="hero-logo"
-                            src="file:///H:/My%20Drive/Main%20FIle/logo/Logo/Fast%20Assignment_JPEG_Original%20logo%201.jpg"
+                            src="H:\My Drive\Main FIle\logo\Logo\Fast Assignment_JPEG_Original logo 1.jpg"
                             alt="Fast Assignment logo"
                         >
                         <div>
