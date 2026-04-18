@@ -94,17 +94,6 @@
             margin-bottom: 24px;
         }
 
-        .auth-logo {
-            width: 110px;
-            height: 110px;
-            object-fit: contain;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.96);
-            padding: 10px;
-            box-shadow: 0 16px 28px rgba(2, 6, 23, 0.28);
-            margin-bottom: 16px;
-        }
-
         .auth-title {
             margin: 0 0 8px;
             font-size: 1.8rem;
@@ -158,16 +147,6 @@
             align-items: center;
             gap: 18px;
             flex-wrap: wrap;
-        }
-
-        .hero-logo {
-            width: 92px;
-            height: 92px;
-            object-fit: contain;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.96);
-            padding: 8px;
-            box-shadow: 0 16px 28px rgba(2, 6, 23, 0.28);
         }
 
         .hero h1 {
@@ -978,11 +957,6 @@
         <section class="auth-screen" id="authScreen">
             <div class="auth-card">
                 <div class="auth-brand">
-                    <img
-                        class="auth-logo"
-                        src="H:\My Drive\Main FIle\logo\Logo\Fast Assignment_JPEG_Original logo 1.jpg"
-                        alt="Fast Assignment logo"
-                    >
                     <h1 class="auth-title">Fast Assignment</h1>
                     <p class="auth-text">Sign in to open the task management system and continue your daily workflow.</p>
                 </div>
@@ -1012,11 +986,6 @@
             <header class="hero">
                 <div>
                     <div class="hero-brand">
-                        <img
-                            class="hero-logo"
-                            src="H:\My Drive\Main FIle\logo\Logo\Fast Assignment_JPEG_Original logo 1.jpg"
-                            alt="Fast Assignment logo"
-                        >
                         <div>
                             <h1><i class="fa-solid fa-clipboard-check"></i> Fast Assignment Task Management System</h1>
                             <p>Manage student assignments, assessments, and projects with stable task IDs, smart due-date highlighting, persistent browser storage, and polished export-ready workflow tools for Fast Assignment.</p>
